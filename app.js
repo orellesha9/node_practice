@@ -3,10 +3,13 @@ import productsRouter from "./routes/products.js";
 
 const app = express();
 
-app.use((req, res, next) => {
-    console.log(req.method);
-    next();
-});
+app.use(express.json());
+
+// app.use((req, res, next) => {
+//     // console.log(req.body);
+//     // console.log(typeof req.body);
+//     next();
+// });
 
 app.use("/products", productsRouter);
 
@@ -22,5 +25,5 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(3000, () => {
-    console.log("Server start port 3000");
+    console.log(" === Server start port 3000");
 });
