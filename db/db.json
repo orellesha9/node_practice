@@ -3,5 +3,15 @@
     "name": "apple",
     "price": 400,
     "id": "M7r0TT-Cj4oDxMl1AR9Rm"
+  },
+  {
+    "name": "banana",
+    "price": 100,
+    "id": "9bq9D4b4aAPpbRFCu7NkK"
+  },
+  {
+    "name": "peach",
+    "price": 300,
+    "id": "rNbiArFWMWLIgUgthoyns"
   }
 ]
