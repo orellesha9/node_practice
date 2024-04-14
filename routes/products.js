@@ -16,6 +16,6 @@ productsRouter.post('/', validation.add, createProduct);
 
 productsRouter.patch('/:id', validation.update, updateProduct);
 
-productsRouter.post('/images', upload.array('images', 2), createImages)
+productsRouter.post('/:id/images', upload.array('images', 2), createImages)
 
 export default productsRouter;

@@ -24,5 +24,10 @@ const productSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
+productSchema.pre(`findOneAndUpdate`, function() {
+  this.setOptions({new: true})
+})
+
+
 const Product = model("product", productSchema);
 export default Product;

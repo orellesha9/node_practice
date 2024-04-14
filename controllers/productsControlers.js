@@ -1,5 +1,10 @@
-import * as s from '../services/products.js';
-import { createError } from '../helpers/createError.js';
+import * as s from "../services/products.js";
+import { createError } from "../helpers/createError.js";
+import path from "path";
+import fs from "fs/promises";
+import Product from "../models/Product.js";
+
+const productsImagePath = path.resolve("public", "images");
 
 const getProducts = async (req, res, next) => {
   try {
@@ -24,7 +29,7 @@ const updateProduct = async (req, res, next) => {
     const { params, body } = req;
     const result = await s.updateProduct(params.id, body);
     if (!result) {
-      throw createError(404, 'Not found product');
+      throw createError(404, "Not found product");
     }
     res.json(result);
   } catch (error) {
@@ -34,14 +39,32 @@ const updateProduct = async (req, res, next) => {
 
 const createImages = async (req, res, next) => {
   try {
-    if(!req.files.length) {
-      throw createError(400, "Files not passed")
+    if (!req.files.length) {
+      throw createError(400, "Files not passed");
     }
-    console.log(req.files)
-    res.json("createImages OK")
+
+    const { path: oldPath, filename } = req.files;
+    const pathes = req.files.map(async ({ path: oldPath, filename }) => {
+      const newPath = path.join(productsImagePath, filename);
+      await fs.rename(oldPath, newPath);
+
+      const publicPath = path.join("images", filename);
+      return publicPath;
+    });
+    const promiseResult = await Promise.allSettled(pathes);
+    const { id } = req.params;
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, {
+      // productImages: promiseResult.map(({ value }) => value),
+      $push: {
+        productImages: { $each: promiseResult.map(({ value }) => value) },
+      },
+    });
+
+    res.json(updatedProduct);
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 
 export { getProducts, createProduct, updateProduct, createImages };
