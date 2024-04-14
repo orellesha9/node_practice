@@ -14,6 +14,12 @@ const productSchema = new Schema(
       type: Number,
       default: 0,
     },
+    productImages: {
+      type: [{
+        type: String
+      }],
+      default: []
+    }
   },
   { versionKey: false, timestamps: true }
 );

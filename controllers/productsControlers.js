@@ -32,4 +32,16 @@ const updateProduct = async (req, res, next) => {
   }
 };
 
-export { getProducts, createProduct, updateProduct };
+const createImages = async (req, res, next) => {
+  try {
+    if(!req.files.length) {
+      throw createError(400, "Files not passed")
+    }
+    console.log(req.files)
+    res.json("createImages OK")
+  } catch (error) {
+    next(error)
+  }
+}
+
+export { getProducts, createProduct, updateProduct, createImages };

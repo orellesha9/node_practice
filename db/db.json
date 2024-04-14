@@ -13,5 +13,15 @@
     "name": "peach",
     "price": 300,
     "id": "rNbiArFWMWLIgUgthoyns"
+  },
+  {
+    "name": "Banana",
+    "price": 3.99,
+    "id": "f3dGg57cfzSO5fFQ7jQQk"
+  },
+  {
+    "name": "Banana",
+    "price": 3.99,
+    "id": "F_h10ja0o8i90CPS1Qrbp"
   }
 ]
