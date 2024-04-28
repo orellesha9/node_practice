@@ -13,6 +13,8 @@ authRouter.get('/current', authenticate, async (req, res, next) => {
   res.json(rest);
 });
 
-authRouter.post("/password", controllers.sendEmailToUpdatePassword)
+authRouter.post("/password", controllers.sendEmailToUpdatePassword);
+
+authRouter.post("/password/update", authenticate, controllers.passwordUpdate)
 
 export default authRouter;
