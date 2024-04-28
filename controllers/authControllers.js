@@ -3,6 +3,7 @@ import * as service from '../services/auth.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { envConfige } from '../envConfige.js';
+import sendEmail from '../helpers/sendMail.js';
 
 export const signUp = async (req, res, next) => {
   try {
@@ -51,3 +52,19 @@ export const logIn = async (req, res, next) => {
     next(error);
   }
 };
+
+export const sendEmailToUpdatePassword = async (req, res, next) => {
+  const {email} = req.body;
+
+  const user = await service.findUserByEmail(email);
+
+  if(!user) {
+    throw createError(404, "User not found")
+  }
+
+  await sendEmail({email, subjectText: "Update password", href: envConfige.FRONT_URL} );
+
+  res.status(200).json({
+    message: "Email send success"
+  })
+}

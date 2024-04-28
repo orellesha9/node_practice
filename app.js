@@ -4,8 +4,11 @@ import mongoose from 'mongoose';
 import { envConfige } from './envConfige.js';
 import authRouter from './routes/auth.js';
 import morgan from 'morgan';
+import cors from "cors"
+
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 app.use(morgan('tiny'));
 

@@ -10,8 +10,9 @@ authRouter.post('/login', controllers.logIn);
 
 authRouter.get('/current', authenticate, async (req, res, next) => {
   const { password, ...rest } = req.user._doc;
-  console.dir(req.user);
   res.json(rest);
 });
+
+authRouter.post("/password", controllers.sendEmailToUpdatePassword)
 
 export default authRouter;
